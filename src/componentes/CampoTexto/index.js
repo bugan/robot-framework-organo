@@ -17,6 +17,8 @@ const CampoTexto = (props) => {
         placeholder={placeholderModificada}
         id={props.id}
       />
+      {}
+      {erro ? <p id={`${props.id}-erro`}>Mensagem de erro</p> : ""}
     </div>
   );
 };
