@@ -1,10 +1,13 @@
+import { useState } from "react";
 import "./CampoTexto.css";
 
 const CampoTexto = (props) => {
   const placeholderModificada = `${props.placeholder}...`;
-  const erro = true;
+  const [erro, setErro] = useState(true);
+
   const aoDigitado = (evento) => {
-    props.aoAlterado(evento.target.value);
+    setErro(evento.target.value === "");
+    props.aoAlterado(evento.target.value, evento.target.value === "");
   };
 
   return (
@@ -13,12 +16,15 @@ const CampoTexto = (props) => {
       <input
         value={props.valor}
         onChange={aoDigitado}
-        required={props.obrigatorio}
         placeholder={placeholderModificada}
         id={props.id}
       />
       {}
-      {erro ? <p id={`${props.id}-erro`}>Mensagem de erro</p> : ""}
+      {props.mostraErro && erro ? (
+        <p id={`${props.id}-erro`}>{props.mensagemErro}</p>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
